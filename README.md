@@ -59,6 +59,10 @@ Pronto, eu já tinha tudo o que precisava para começar a desenvolver. Rodei o C
 ### Modal ao finalizar a compra (O "ganhou de volta" foi inspirado no AME, mas na PokéStore só devolvemos 5%).
 <img src="./assets/finishmodal.png" width=600/>
 
+<hr/>
+
+## Mobile
+
 E é claro que tinha que ser responsivo. No mobile o carrinho lateral tem um botão de toggle para exibir ou não ele.
 
 ### Home mobile
