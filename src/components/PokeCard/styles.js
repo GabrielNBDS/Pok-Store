@@ -12,13 +12,14 @@ const fadeDown = keyframes`
 `;
 
 export const Card = styled.div`
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
 
   background: #FFFFFF;
   border-radius: 10px;
 
   margin: 50px;
+  flex: 1;
 
   animation: ${fadeDown} 1s;
 

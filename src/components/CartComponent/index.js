@@ -7,9 +7,11 @@ import { CartContainer, CartHeader, Finish, Cart, CartItem, Total } from './styl
 
 export default function CartComponent({minwidth, children}) {
   const { increment, decrement, pokemon, setEmpty } = useCart();
+  
+  const filteredPokemon = pokemon.filter(element => element.type === window.location.pathname);
 
   const cartTotal = useMemo(() => {
-    const totalArray = pokemon.map(
+    const totalArray = filteredPokemon.map(
       element => element.price * element.quantity,
     );
 
@@ -22,7 +24,7 @@ export default function CartComponent({minwidth, children}) {
       return total;
     }
     return 0;
-  }, [pokemon]);
+  }, [filteredPokemon]);
 
   const handleFinish = useCallback(()=> {
     Swal.fire({
@@ -42,22 +44,22 @@ export default function CartComponent({minwidth, children}) {
         Carrinho
       </CartHeader>
       <Cart>
-        {pokemon.map( element => (
+        {filteredPokemon.map( element => (
           <CartItem 
             key={`${element.name}-${element.quantity}-${element.price}`}
             bgcolor={window.location.pathname === '/grass' ? "#78C850" : "#EA477f"}  
           >
-          <p>
-            {element.name}  
-          </p>
-          <div>
-            <button onClick={() => increment(element.name)}> + </button>
-            <button onClick={() => decrement(element.name)}> - </button>
-          </div>
-          <p>
-          QTY: {element.quantity} TOTAL: R${element.price * element.quantity},00
-          </p>
-        </CartItem>
+            <p>
+              {element.name}  
+            </p>
+            <div>
+              <button onClick={() => increment(element.name)}> + </button>
+              <button onClick={() => decrement(element.name)}> - </button>
+            </div>
+            <p>
+            QTY: {element.quantity} TOTAL: R${element.price * element.quantity},00
+            </p>
+          </CartItem>
         ))}
       </Cart>
       { cartTotal > 0 

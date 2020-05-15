@@ -12,7 +12,7 @@ const CartProvider = ({ children }) => {
   const [pokemon, setPokemon] = useState([]);
 
   useEffect(() => {
-    const items = localStorage.getItem(window.location.pathname);
+    const items = localStorage.getItem("Pokemon");
 
     if (items) {
       setPokemon(JSON.parse(items));
@@ -21,8 +21,7 @@ const CartProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(window.location.pathname, JSON.stringify(pokemon));
-
+    localStorage.setItem("Pokemon", JSON.stringify(pokemon));
   }, [pokemon])
 
   const addToCart = useCallback(
@@ -36,6 +35,7 @@ const CartProvider = ({ children }) => {
         const newPokemon = {
           name,
           price,
+          type: window.location.pathname,
           quantity: 1,
         };
         setPokemon([...pokemon, newPokemon]);
@@ -43,12 +43,13 @@ const CartProvider = ({ children }) => {
         const items = pokemon.map(element => {
           if (sPokemon.name === element.name) {
             const { name, price, quantity } = element;
-            const newProduct = {
+            const newPokemon = {
               name,
               price,
+              type: window.location.pathname,
               quantity: quantity + 1,
             };
-            return newProduct;
+            return newPokemon;
           }
           return element;
         });
@@ -61,22 +62,25 @@ const CartProvider = ({ children }) => {
   );
 
   const setEmpty = useCallback(()=> {
-    localStorage.setItem(window.location.pathname, '');
+    const filteredPokemon = pokemon.filter(element => element.type !== window.location.pathname);
 
-    setPokemon([]);
-  }, [])
+    localStorage.setItem("Pokemon", filteredPokemon);
+
+    setPokemon(filteredPokemon);
+  }, [pokemon])
 
   const increment = useCallback(
     name => {
       const items = pokemon.map(element => {
         if (name === element.name) {
           const { name: elementName, price, quantity } = element;
-          const newProduct = {
+          const newPokemon = {
             name: elementName,
             price,
+            type: window.location.pathname,
             quantity: quantity + 1,
           };
-          return newProduct;
+          return newPokemon;
         }
         return element;
       });
@@ -91,10 +95,11 @@ const CartProvider = ({ children }) => {
     name => {
       const items = pokemon.map(element => {
         if (name === element.name) {
-          const { name: elementName, price, quantity } = element;
+          const { name: elementName, price, quantity, type } = element;
           const newPokemon = {
             name: elementName,
             price,
+            type,
             quantity: quantity - 1,
           };
 
