@@ -1,7 +1,7 @@
 <p align=center>
   <img src="./src/assets/logo.png"/>
 </p>
-<h2 align=center>Clique <a href="https://pokestore.netlify.app/">aqui</a> para ver a live demo.</h2>
+<h2 align=center>Clique <a href="https://pokemonstore.netlify.app/">aqui</a> para ver a live demo.</h2>
 
 ## O que é?
 
